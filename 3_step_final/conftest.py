@@ -11,20 +11,9 @@ def pytest_addoption(parser):
 @pytest.fixture(scope="function")
 def browser(request):
     browser_lang = request.config.getoption("language")
-    if browser_lang == "es":
-        options = Options()
-        options.add_experimental_option('prefs', {'intl.accept_languages': browser_lang})
-        browser = webdriver.Chrome(options=options)
-    elif browser_lang == "ru":
-        options = Options()
-        options.add_experimental_option('prefs', {'intl.accept_languages': browser_lang})
-        browser = webdriver.Chrome(options=options)
-    elif browser_lang == "fr":
-        options = Options()
-        options.add_experimental_option('prefs', {'intl.accept_languages': browser_lang})
-        browser = webdriver.Chrome(options=options)
-    else:
-        raise pytest.UsageError("--browser_lang should be language or language not found")
+    options = Options()
+    options.add_experimental_option('prefs', {'intl.accept_languages': browser_lang})
+    browser = webdriver.Chrome(options=options)
 
     yield browser
     print("\nquit browser..")
